@@ -1,5 +1,5 @@
 // app/page.js
-import Hero from './components/Hero';
+import Hero from './components/accueil/Hero';
 import RecettesRecentes from './components/accueil/RecettesRecentes';
 import DecoHero from './components/accueil/DecoHero';
 // récupération de l'image mise en avant

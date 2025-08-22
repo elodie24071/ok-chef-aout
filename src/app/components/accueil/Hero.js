@@ -1,4 +1,4 @@
-// app/components/Hero.js
+// app/components/accueil/Hero.js
 'use client';
 import Image from "next/image";
 import Link from "next/link";

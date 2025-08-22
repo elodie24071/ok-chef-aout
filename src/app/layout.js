@@ -11,7 +11,7 @@ import ParallaxProviderClient from './parallaxe/ParallaxeProviderClient';
 import { Quicksand, Caveat_Brush } from 'next/font/google';
 
 const quicksand = Quicksand({ subsets: ['latin'], weight: ['300','400','500','600','700'] });
-const caveat = Caveat_Brush({ subsets: ['latin'], weight: ['400','700'] });
+const caveat = Caveat_Brush({ subsets: ['latin'], weight: ['400'] });
 
 
 export default function RootLayout({ children }) {
