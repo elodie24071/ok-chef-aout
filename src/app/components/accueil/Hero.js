@@ -6,7 +6,7 @@ import { Parallax } from "react-scroll-parallax";
 
 export default function Hero() {
     return (
-        <div className="hero flex flex-col relative overflow-x-hidden">
+        <div className="hero flex flex-col relative">
             <div className="absolute rotate-180 top-[clamp(-10px,-1vw,-5px)] left-[clamp(-10px,-1vw,-3px)]">
                 <Parallax speed={-5}>
                     <Image
@@ -58,7 +58,7 @@ export default function Hero() {
                 </p>
                 <Link
                     href="/recettes"
-                    className="mt-6 text-xs md:text-sm lg:text-lg px-2 md:px-6 lg:px-8 py-1 md:py-2 bg-jaune text-brun border-2 border-transparent rounded-full shadow hover:bg-transparent hover:border-jaune hover:text-jaune transition-colors"
+                    className="font-quicksand font-semibold mt-6 text-xs md:text-sm lg:text-lg px-2 md:px-6 lg:px-8 py-1 md:py-2 bg-jaune text-brun border-2 border-transparent rounded-full shadow hover:bg-transparent hover:border-jaune hover:text-jaune transition-colors"
                 >
                     Découvrir les recettes
                 </Link>

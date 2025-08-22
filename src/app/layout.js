@@ -17,7 +17,7 @@ const caveat = Caveat_Brush({ subsets: ['latin'], weight: ['400'] });
 export default function RootLayout({ children }) {
   return (
     <html lang="fr">
-      <body className={`${quicksand.variable} ${caveat.variable} bg-jaune text-brun min-h-screen flex flex-col`}>
+      <body className={`${quicksand.className} ${caveat.className} bg-jaune text-brun min-h-screen flex flex-col`}>
       <ParallaxProviderClient>
         <Navbar />
         <main className="contenu-app-page">{children}</main>
