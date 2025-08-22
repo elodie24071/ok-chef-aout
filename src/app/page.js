@@ -1,11 +1,20 @@
-export default function Home() {
+// app/page.js
+import Hero from './components/Hero';
+import RecettesRecentes from './components/accueil/RecettesRecentes';
+import DecoHero from './components/accueil/DecoHero';
+// récupération de l'image mise en avant
+async function getRecettes() {
+  const res = await fetch('http://localhost/ok-chef-wp/wp-json/wp/v2/recettes?_embed', { cache: 'no-store' });
+  return res.json();
+}
+
+export default async function Home() {
+  const recettes = await getRecettes();
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-yellow-100 text-gray-800">
-      <h1 className="text-4xl font-bold text-orange-600">Bienvenue sur Ok Chef ! 👨‍🍳</h1>
-      <p className="mt-4 text-lg">Votre carnet de recettes digital arrive bientôt 🍲</p>
-      <button className="mt-6 px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600">
-        Découvrir les recettes
-      </button>
-    </main>
+    <section className="page-acueil">
+      <Hero />
+      <DecoHero />
+      <RecettesRecentes recettes={recettes} />
+    </section>
   );
 }
