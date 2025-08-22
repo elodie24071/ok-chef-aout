@@ -1,3 +1,4 @@
+// app/components/accueil/DecoHero.js
 'use client';
 import Image from "next/image";
 import { Parallax } from "react-scroll-parallax";

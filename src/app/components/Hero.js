@@ -10,7 +10,7 @@ export default function Hero() {
             <div className="absolute rotate-180 top-[clamp(-10px,-1vw,-5px)] left-[clamp(-10px,-1vw,-3px)]">
                 <Parallax speed={-5}>
                     <Image
-                        src="/illu/pt-oignon.png"
+                        src="/illu/pt-oignon.svg"
                         alt=""
                         aria-hidden
                         width={400}
@@ -25,7 +25,7 @@ export default function Hero() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <Parallax speed={10}>
                     <Image
-                        src="/illu/gd-oignon.png"
+                        src="/illu/gd-oignon.svg"
                         alt=""
                         aria-hidden
                         width={700}
@@ -39,7 +39,7 @@ export default function Hero() {
             <div className="absolute top-[-150px] right-[-20px]">
                 <Parallax speed={-10}>
                     <Image
-                        src="/illu/vanille.png"
+                        src="/illu/vanille.svg"
                         alt="Illustration d'une gousse de vanille"
                         width={550}
                         height={660}
@@ -47,35 +47,9 @@ export default function Hero() {
                     />
                 </Parallax>
             </div>
-            {/* <div className="absolute bottom-[clamp(0px,0vw,0px)] left-[clamp(0px,0vw,0px)]">
-                <Parallax speed={-8}>
-                    <Image
-                        src="/illu/feuille.svg"
-                        alt="Illustration d'une feuille"
-                        width={500}
-                        height={770}
-                        className="w-[clamp(100px,30vw,500px)] h-auto"
-                        draggable="false"
-                        priority
-                    />
-                </Parallax>
-            </div>
-            <div className="absolute  bottom-[clamp(-50px,-16vw,-40px)] right-[clamp(0px,0vw,0px)]">
-                <Parallax speed={-6}>
-                    <Image
-                        src="/illu/basilic.svg"
-                        alt="Illustration d'une feuille de basilic"
-                        width={500}
-                        height={740}
-                        className="w-[clamp(150px,30vw,450px)] h-auto"
-                        draggable="false"
-                        priority
-                    />
-                </Parallax>
-            </div> */}
-
+            
             <div className="flex flex-col justify-center items-center text-center min-h-[70vh] md:min-h-[80vh] lg:h-screen mx-auto z-10 px-5">
-                <h1 className="text:xl md:text-2xl lg:text-4xl font-bold text-primary mb-4 font-caveat">
+                <h1 className="text:xl md:text-2xl lg:text-4xl font-bold mb-4 font-caveat">
                     Bienvenue sur Ok Chef 🍳
                 </h1>
                 <p className="text-xs md:text-sm lg:text-lg max-w-xs lg:max-w-xl mx-auto font-quicksand font-semibold">
