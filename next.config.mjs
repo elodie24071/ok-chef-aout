@@ -3,8 +3,8 @@ const nextConfig = {
     images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
+        protocol: 'https',
+        hostname: 'elodie.techniques-graphiques.be',
         port: '', // <-- Mets le port utilisé par ton MAMP (ex: 8888), ou enlève cette ligne si pas de port
         pathname: '/ok-chef-wp/wp-content/uploads/**',
       },

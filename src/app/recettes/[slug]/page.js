@@ -97,7 +97,7 @@ export default function RecetteDetail({ params }) {
         const fetchRecette = async () => {
             try {
                 const res = await fetch(
-                    `http://localhost/ok-chef-wp/wp-json/wp/v2/recettes?slug=${slug}&_embed`,
+                    `${process.env.NEXT_PUBLIC_WP_URL}/wp-json/wp/v2/recettes?slug=${slug}&_embed`,
                     { cache: 'no-store' }
                 );
 

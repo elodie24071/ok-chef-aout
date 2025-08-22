@@ -5,7 +5,8 @@ import CarteRecette from '../components/page-recette/CarteRecette';
 import FiltreRecettes from '../components/page-recette/FiltreRecettes';
 
 async function getRecettes() {
-  const res = await fetch('http://localhost/ok-chef-wp/wp-json/wp/v2/recettes?_embed', { cache: 'no-store' });
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WP_URL}/wp-json/wp/v2/recettes?_embed`, { cache: 'no-store' });
+
   return res.json();
 }
 
@@ -50,7 +51,7 @@ export default function RecettesPage() {
       </h1>
 
       {/* Composant de filtrage intelligent */}
-      <FiltreRecettes 
+      <FiltreRecettes
         recettes={recettes}
         onFilteredRecettes={handleFilteredRecettes}
       />
