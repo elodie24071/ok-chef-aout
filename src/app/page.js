@@ -11,7 +11,7 @@ async function getRecettes() {
 export default async function Home() {
   const recettes = await getRecettes();
   return (
-    <section className="page-acueil">
+    <section className="page-acueil overflow-x-hidden">
       <Hero />
       <DecoHero />
       <RecettesRecentes recettes={recettes} />

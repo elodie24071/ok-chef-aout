@@ -1,8 +1,12 @@
 // app/layout.js
-// export const metadata = {
-//   title: 'Ok Chef',
-//   description: 'Carnet de recettes connecté à WordPress',
-// };
+export const metadata = {
+  title: 'Ok Chef',
+  description: 'Carnet digital de recettes',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
+};
 
 import './globals.css';
 import Navbar from './components/Navbar';

@@ -38,7 +38,7 @@ export default function RecettesPage() {
     return (
       <section className='flex flex-col items-center p-6'>
         <div className="text-center">
-          <p className="text-lg font-quicksand">Chargement des recettes...</p>
+          <p className="text-4xl flex justify-center items-center font-caveat font-bold h-screen">Chargement des recettes...</p>
         </div>
       </section>
     );
@@ -65,12 +65,12 @@ export default function RecettesPage() {
 
       {/* Message si aucune recette trouvée */}
       {filtreRecettes.length === 0 && recettes.length > 0 && (
-        <div className="text-center mt-8">
-          <p className="text-lg font-quicksand text-gray-600">
+        <div className="text-center mt-8 h-[40vh]">
+          <p className="text-lg font-quicksand text-brun">
             Aucune recette ne correspond à vos critères de recherche.
           </p>
-          <p className="text-sm font-quicksand text-gray-500 mt-2">
-            Essayez de modifier vos filtres ou de les réinitialiser.
+          <p className="text-sm font-quicksand text-brun mt-2">
+            Essayez de modifier vos filtres ou appuyer sur <span className='font-caveat text-base'>Reset</span>
           </p>
         </div>
       )}
