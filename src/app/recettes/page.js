@@ -1,4 +1,3 @@
-// app/recettes/page.js
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import CarteRecette from '../components/page-recette/CarteRecette';
@@ -15,7 +14,7 @@ export default function RecettesPage() {
   const [filtreRecettes, setFiltreRecettes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Récupération des données au montage du composant
+  // charger les recettes
   useEffect(() => {
     getRecettes()
       .then(data => {
@@ -29,7 +28,7 @@ export default function RecettesPage() {
       });
   }, []);
 
-  // Callback pour recevoir les recettes filtrées (mémorisé pour éviter les re-renders)
+  // callback pour recevoir les recettes filtrées (mémorisé pour éviter les re-renders)
   const handleFilteredRecettes = useCallback((recettesFiltrees) => {
     setFiltreRecettes(recettesFiltrees);
   }, []);
@@ -38,7 +37,7 @@ export default function RecettesPage() {
     return (
       <section className='flex flex-col items-center p-6'>
         <div className="text-center">
-          <p className="text-4xl flex justify-center items-center font-caveat font-bold h-screen">Chargement des recettes...</p>
+          <p className="lg:text-4xl flex justify-center items-center font-caveat font-bold h-screen">Chargement des recettes...</p>
         </div>
       </section>
     );
@@ -46,31 +45,28 @@ export default function RecettesPage() {
 
   return (
     <section className='flex flex-col items-center p-6'>
-      <h1 className="text:xl md:text-2xl lg:text-4xl font-bold mb-6 font-caveat">
+      <h1 className="text-xl md:text-2xl lg:text-4xl font-bold mb-6 font-caveat">
         Nos Recettes
       </h1>
 
-      {/* Composant de filtrage intelligent */}
+      {/* filtre */}
       <FiltreRecettes
         recettes={recettes}
         onFilteredRecettes={handleFilteredRecettes}
       />
 
-      {/* Grille des recettes */}
+      {/* grille recettes */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         {filtreRecettes.map((recette) => (
           <CarteRecette key={recette.id} recette={recette} />
         ))}
       </div>
 
-      {/* Message si aucune recette trouvée */}
+      {/* msg si aucune recette trouvée */}
       {filtreRecettes.length === 0 && recettes.length > 0 && (
         <div className="text-center mt-8 h-[40vh]">
-          <p className="text-lg font-quicksand text-brun">
-            Aucune recette ne correspond à vos critères de recherche.
-          </p>
-          <p className="text-sm font-quicksand text-brun mt-2">
-            Essayez de modifier vos filtres ou appuyer sur <span className='font-caveat text-base'>Reset</span>
+          <p className="text:xs md:text-lg font-quicksand text-brun">
+            Aucune recette ne correspond à vos critères de recherche. Essayez de modifier vos filtres ou appuyer sur <span className='font-caveat text-base md:text-lg'>Reset</span>
           </p>
         </div>
       )}

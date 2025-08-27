@@ -1,17 +1,17 @@
-// app/components/details/ListeIngredients.js
 "use client";
 import { useState } from "react";
 import DropDown from "./DropDown"
 
 export default function ListeIngredients({ ingredients }) {
     const [checkedIngredients, setCheckedIngredients] = useState([]);
-    const [isOpen, setIsOpen] = useState(false); // État local pour les ingrédients
+    const [isOpen, setIsOpen] = useState(false);
     
+    // checkbox
     const handleCheck = (index) => {
         setCheckedIngredients((prev) =>
-            prev.includes(index)
-                ? prev.filter((i) => i !== index)
-                : [...prev, index]
+            prev.includes(index) // vérifie si l'ingrédient est déjà coché
+                ? prev.filter((i) => i !== index) // si oui, on le décoche
+                : [...prev, index] // sinon, on l'ajoute
         );
     };
 

@@ -6,28 +6,35 @@ import RecetteImage from "@/app/components/RecetteImage";
 import RecetteInfos from "@/app/components/details/RecetteInfos";
 import ListeIngredients from "@/app/components/details/ListeIngredients";
 import ListeEtapes from "@/app/components/details/ListeEtapes";
-// import AssistantVocal from "@/app/components/assistant/AssistantVocal";
-import AssistantVocalTest from "@/app/components/assistant/AssistantVocalTest";
+import AssistantVocal from "@/app/components/details/AssistantVocal";
 
 export default function RecetteDetail({ params }) {
-    // Unwrap params avec React.use()
     const resolvedParams = use(params);
     const slug = resolvedParams.slug;
 
-    // États pour les données
     const [recette, setRecette] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    // État pour gérer quelle étape est ouverte
     const [etapeOuverte, setEtapeOuverte] = useState(null);
 
-    // Fonction appelée par l'assistant vocal pour changer d'étape
-    // const handleChangeEtape = (numeroEtape) => {
-    //     setEtapeOuverte(numeroEtape);
-    // };
+    // changer d'étape
+    const handleChangeEtape = (numeroEtape) => {
+        // ouvre l'étape correspondante
+        setEtapeOuverte(numeroEtape);
 
-    // Fetch des données au montage du composant
+        // scroll vers l'étape
+        setTimeout(() => {
+            const etapeElement = document.querySelector(`[data-etape-index="${numeroEtape}"]`);
+            if (etapeElement) {
+                etapeElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }
+        }, 100);
+    };
+
+    // charger les données de la recette
     useEffect(() => {
         const fetchRecette = async () => {
             try {
@@ -54,24 +61,22 @@ export default function RecetteDetail({ params }) {
                 setLoading(false);
             }
         };
-
         fetchRecette();
     }, [slug]);
 
-    // États de chargement et d'erreur
     if (loading) {
-        return <div className="p-6 text-4xl flex justify-center items-center font-caveat font-bold h-screen">Chargement de la recette...</div>;
+        return <div className="p-6 lg:text-4xl flex justify-center items-center font-caveat font-bold h-screen">Chargement de la recette...</div>;
     }
 
     if (error) {
-        return <div className="p-6 text-4xl flex justify-center items-center font-caveat font-bold h-screen">Erreur : {error}</div>;
+        return <div className="p-6 lg:text-4xl flex justify-center items-center font-caveat font-bold h-screen">Erreur : {error}</div>;
     }
 
     if (!recette) {
-        return <div className="p-6 text-4xl flex justify-center items-center font-caveat font-bold h-screen">Recette introuvable</div>;
+        return <div className="p-6 lg:text-4xl flex justify-center items-center font-caveat font-bold h-screen">Recette introuvable</div>;
     }
 
-    // Extraction des données
+    // récupérer l'image mise en avant
     const featuredImage = recette._embedded?.['wp:featuredmedia']?.[0]?.source_url || null;
     const acf = recette.acf || {};
 
@@ -105,13 +110,9 @@ export default function RecetteDetail({ params }) {
                 </div>
             </div>
 
-            {/* <AssistantVocal
+            <AssistantVocal
                 etapes={acf.etapes || []}
                 changeEtape={handleChangeEtape}
-            /> */}
-            <AssistantVocalTest
-                etapes={acf.etapes || []}
-                // changeEtape={handleChangeEtape}
             />
         </article>
     );

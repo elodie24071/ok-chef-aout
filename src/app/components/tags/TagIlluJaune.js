@@ -1,4 +1,3 @@
-// app/components/tags/TagIlluJaune.js
 const TagIlluJaune = {
     "viande": '/illu/viande-jaune.svg',
     "poisson": '/illu/poisson-jaune.svg',

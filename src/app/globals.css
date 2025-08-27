@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Quicksand:wght@300;400;500;600;700&display=swap'); */
 
 :root {
   --background: #ffffff;
@@ -32,7 +31,7 @@ body {
 .hero,
 .illu {
   position: relative;
-  overflow: visible; /* Important : permet aux images Parallax de ne pas être coupées */
+  overflow: visible;
 }
 
 .hero img,

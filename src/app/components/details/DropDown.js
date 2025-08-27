@@ -3,8 +3,8 @@
 import { useRef, useEffect, useState } from "react";
 
 export default function DropDown({ title, children, isOpen, onToggle }) {
-    const contentRef = useRef(null);
-    const [height, setHeight] = useState(0);
+    const contentRef = useRef(null); // mesure la hauteur du contenu
+    const [height, setHeight] = useState(0); 
 
     useEffect(() => {
         if (contentRef.current) {

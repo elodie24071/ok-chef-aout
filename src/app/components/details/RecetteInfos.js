@@ -1,7 +1,6 @@
-// app/components/details/RecetteInfos.js
-import InfoStyle from "../tags/InfoStyle"; // style pers, temps
+import InfoStyle from "../tags/InfoStyle"; // design tag pers et tps
 import TagIllu from "../tags/TagIllu"; // illu des tags
-import TagStyle from "../tags/TagStyle"; // style viande, poisson, végétarien
+import TagStyle from "../tags/TagStyle"; // design tag aliment
 
 export default function RecetteInfos({ acf, taxonomies }) {
     const getTags = (taxNom) => taxonomies?.find(group => group[0]?.taxonomy === taxNom) || [];
