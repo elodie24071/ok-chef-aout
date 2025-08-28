@@ -98,7 +98,7 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
                     window.speechSynthesis.speak(utterance);
                 };
 
-                // code généré par Claude.ai
+                // code généré à l'aide de l'ia
                 // gérer le cas où les voix sont pas encore chargées
                 if (window.speechSynthesis.getVoices().length === 0) {
                     // Attendre le chargement des voix
@@ -309,7 +309,7 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
             }
         }
         return false;
-    }, [etapes.length, stopAssistant, gererVocal]);
+    }, [etapes.length, stopAssistant, gererVocal, CONFIDENCE_THRESHOLD]);
 
     // config reconnaissance vocale
     const setupRecognition = useCallback(() => {
@@ -582,68 +582,24 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
 
             {/* interface de secours pour navigateurs non compatibles */}
             {showFallback && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center">
-                    <div className="bg-white rounded-lg p-6 m-4 max-w-sm">
-                        <h3 className="text-lg font-bold mb-4">Assistant Vocal</h3>
-                        <p className="text-sm text-gray-600 mb-4">
-                            La reconnaissance vocale n&apos;est pas supportée. Utilisez les contrôles manuels :
-                        </p>
-
-                        {/* btn de contrôle manuel */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                            {[
-                                {
-                                    text: "← Précédent",
-                                    action: () => {
-                                        const newIndex = Math.max(etapeActuelle - 1, 0);
-                                        if (newIndex !== etapeActuelle) {
-                                            setEtapeActuelle(newIndex);
-                                            gererVocal('changerEtape', { etapeIndex: newIndex });
-                                        }
-                                    },
-                                    disabled: etapeActuelle === 0
-                                },
-                                {
-                                    text: "Répéter",
-                                    action: () => gererVocal('changerEtape', { etapeIndex: etapeActuelle }),
-                                    disabled: false
-                                },
-                                {
-                                    text: "Suivant →",
-                                    action: () => {
-                                        const newIndex = Math.min(etapeActuelle + 1, etapes.length - 1);
-                                        if (newIndex !== etapeActuelle) {
-                                            setEtapeActuelle(newIndex);
-                                            gererVocal('changerEtape', { etapeIndex: newIndex });
-                                        }
-                                    },
-                                    disabled: etapeActuelle === etapes.length - 1
-                                }
-                            ].map(({ text, action, disabled }, index) => (
-                                <button
-                                    key={index}
-                                    className={`px-3 py-1 text-white rounded text-sm transition-colors ${disabled
-                                        ? "bg-gray-300 cursor-not-allowed"
-                                        : index === 1
-                                            ? "bg-blue-500 hover:bg-blue-600"
-                                            : "bg-gray-500 hover:bg-gray-600"
-                                        }`}
-                                    onClick={action}
-                                    disabled={disabled}
-                                    aria-label={text}
-                                >
-                                    {text}
-                                </button>
-                            ))}
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center font-quicksand">
+                    <div className="bg-brun rounded-lg p-6 m-4 max-w-sm border-2 border-jaune">
+                        <div className="text-center">
+                            <h3 className="text-xl font-bold mb-4 text-jaune">
+                                {'Assistant Vocal Indisponible'}
+                            </h3>
+                            <p className="text-sm text-jaune mb-6 leading-relaxed">
+                                {`Votre navigateur ne supporte pas la reconnaissance vocale.
+                                L'assistant vocal n'est disponible que sur Chrome, Safari et Edge.`}
+                            </p>
+                            <button
+                                onClick={() => setShowFallback(false)}
+                                className="w-full px-4 py-2 bg-jaune text-brun border border-jaune hover:bg-transparent hover:text-jaune font-semibold rounded transition-colors"
+                                aria-label="Fermer le message d'incompatibilité"
+                            >
+                                Fermer
+                            </button>
                         </div>
-
-                        <button
-                            onClick={() => setShowFallback(false)}
-                            className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
-                            aria-label="Fermer l'interface de secours"
-                        >
-                            Fermer
-                        </button>
                     </div>
                 </div>
             )}
