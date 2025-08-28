@@ -23,8 +23,11 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
     const speechQueueRef = useRef(false); // pour éviter les synthèses vocales multiples
     const etapeActuelleRef = useRef(0);
 
-    // seuil min. pour la confiance vocale
-    const CONFIDENCE_THRESHOLD = 0.7;
+    // seuil min. confiance vocale selon appareil
+    const isMobile = navigator.userAgentData?.mobile ||
+        navigator.maxTouchPoints > 0 ||
+        'ontouchstart' in window;
+    const CONFIDENCE_THRESHOLD = isMobile ? 0.5 : 0.7; // Plus bas sur mobile
 
     // gestion vocale
     const gererVocal = useCallback((action, params = {}) => {
@@ -129,7 +132,7 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
                 }
 
                 // maj de l'état de l'étape actuelle
-                etapeActuelleRef.current = etapeIndex; 
+                etapeActuelleRef.current = etapeIndex;
                 setEtapeActuelle(etapeIndex);
 
                 // notifier le composant parent du chgmt d'étape
@@ -155,7 +158,7 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
                         // lancer la synthèse vocale de l'étape
                         gererVocal('parler', {
                             texte: texteFinal,
-                            isStep: true 
+                            isStep: true
                         });
                     }
                 }, 200);
@@ -202,17 +205,20 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
         const texte = transcript.toLowerCase().trim();
         console.log(`Traitement de la commande: "${texte}" (confiance: ${confidence})`);
 
-        // nav par num
-        // Recherche de patterns comme "étape 3" ou juste "3"
-        const matchNumero = texte.match(/étape\s*(\d+)|^(\d+)$/);
-        if (matchNumero) {
-            const numero = parseInt(matchNumero[1] || matchNumero[2]);
-            // vérif que le num existe
-            if (numero >= 1 && numero <= etapes.length) {
-                const targetIndex = numero - 1;
-                gererVocal('changerEtape', { etapeIndex: targetIndex });
-                return true;
+        // nav par num (généré par l'ia)
+        const etapeSpecifique = transcript.match(/(étape|etape)\s*(\d+|un|deux|trois|quatre|cinq|six|sept|huit|neuf|dix)/i);
+        if (etapeSpecifique) {
+            // convertir les mots en nombres
+            const motsEtape = {
+                'un': 1, 'deux': 2, 'trois': 3, 'quatre': 4, 'cinq': 5,
+                'six': 6, 'sept': 7, 'huit': 8, 'neuf': 9, 'dix': 10
+            };
+            const numStr = etapeSpecifique[2].toLowerCase();
+            const numEtape = parseInt(motsEtape[numStr] || numStr) - 1;
+            if (numEtape >= 0 && numEtape < etapes.length) {
+                gererVocal('changerEtape', { etapeIndex: numEtape });
             }
+            return true;
         }
         // récup étape actuelle
         const currentEtape = etapeActuelleRef.current;
@@ -314,8 +320,8 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
             continuous: true,
             interimResults: false,
             lang: 'fr-FR',
-            maxAlternatives: 1 
-        });     
+            maxAlternatives: 1
+        });
 
         // gestion events
         recognition.onstart = () => {
@@ -524,7 +530,7 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
     };
 
     const getStatusText = () => {
-        return isProcessing ? "Parle..." : ecoute ? "Écoute..." : "En attente";
+        return isProcessing ? "Parle..." : ecoute ? "Écoute..." : "Appuyer pour activer";
     };
 
     // Ne pas afficher si pas de support et pas de fallback
@@ -538,11 +544,11 @@ export default function AssistantVocal({ etapes = [], changeEtape }) {
                     <button
                         onClick={() => {
                             if (ecoute) {
-                                stopMicro(); 
+                                stopMicro();
                             } else if (active) {
                                 toggleEcoute();
                             } else {
-                                testAssistant(); 
+                                testAssistant();
                             }
                         }}
                         disabled={isProcessing} // désactiver pdt le traitement
